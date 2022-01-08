@@ -1,14 +1,18 @@
-// skipprを利用するには、「スライドショーをどのように動かすのか」をパラメータとして設定する必要がある。
-
-$(".theTarget").skippr({       //オプションを指定してskipprの実行
-  transition:'fade',           //スライドショーの変化(fadeかslideか)
-  speed:1000,                  //変化にかかる時間(単位：ミリ秒)
-  easing:'easeOutQuart',       //easingの種類 easing=エフェクトの動きを加速/減速させるための関数
-  navType:'block',             //ナビゲーションの形(block=長細い棒　かbubble=丸い転々か)
-  childrenElementType:'div',   //子要素の種類(divかimgか)
-  arrows:true,                 //ナビゲーション矢印の表示(trueで表示される)
-  autoPlay:false,              //スライドショーの自動再生(falseで自動再生なし)
-  autoPlayDuration:5000,       //自動再生時のスライド切り替え感覚(単位：ミリ秒)
-  keyboardOnAlways:true,       //キーボードの矢印キーによるスライド送りの設定(trueで有効)
-  hidePrevious:false           //１枚目のスライド表示時、ひとつ前に戻る矢印を表示するかどうか[false]:矢印を隠さない[true]:矢印を隠す
+$(function() {
+  $('#back a').on('click',function(event){  //#back内のaタグがクリックされたときの処理(構造はCSSと同じ)
+    $('body, html').animate({                //animate()は、アニメーション効果を設定するjQueryの関数、HTML要素のCSSプロパティを変化させることで動きを設定する。
+      scrollTop:0                           //scrollTopはスクロール位置を取得できるメソッド、今回は「scrollTop:0」を指定しているので「最上部に移動する」のみになる
+    }, 800);                                 //アニメーションの動作時間を「800」で指定しているので、「800ミリ秒間(0.8秒間)かけてページの最上部まで移動する」の意味になる。
+    event.preventDefault();                 //aタグの機能を無効にするメソッド。aタグは画面遷移をする機能を保つが、今回は必要ないため無効化している。
+  });
 });
+
+
+// $('セレクタ名').animate({
+  // 変化対象のプロパティ名:変化値
+// },アニメーションの動作時間);
+
+
+//アニメーションの動作時間はミリ秒以外で指定する以外にも「slow」「normal」「fast」で指定することも可能。
+//2行目は、ページ全体に処理を実行したいので、セレクタにはbody,htmlが設定されている。これは「body要素、またはhtml要素」の意味になる。
+//2つの要素を指定するのは、ユーザの利用環境によって指定対象の要素が変化するため。
